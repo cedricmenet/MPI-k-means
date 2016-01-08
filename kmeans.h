@@ -73,7 +73,7 @@ int *k_means(double **data, int n, int m, int k, double t, double **centroids)
          c[i] = (double*)calloc(m, sizeof(double));
       }
       /* pick k points as initial centroids */
-      for (j = m; j-- > 0; c[i][j] = data[h][j]);
+      for (j = m; j-- > 0; c[i][j] = data[h][j]) printf("%d %d\n",h,j);
    }
 
    /****
@@ -84,7 +84,7 @@ int *k_means(double **data, int n, int m, int k, double t, double **centroids)
       old_error = error, error = 0;
 
       /* clear old counts and temp centroids */
-      for (i = 0; i < k; counts[i++] = 0) {
+      for (i = 0; i < k; counts[i++] = 0) { 
          for (j = 0; j < m; c1[i][j++] = 0);
       }
 
