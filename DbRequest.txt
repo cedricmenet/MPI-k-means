@@ -5,10 +5,22 @@ CREATE TABLE TestMpi_tbl(
    TestMpi_id INT NOT NULL AUTO_INCREMENT,
    TestMpi_x VARCHAR(100) NOT NULL,
    TestMpi_y VARCHAR(40) NOT NULL,
-   PRIMARY KEY ( tutorial_id )
+   PRIMARY KEY ( TestMpi_id )
 );
 
 
 
 INSERT INTO TestMpi_tbl (TestMpi_x,TestMpi_y)
 VALUES (0,0),(10,10),(5,5);
+
+
+
+
+CREATE TABLE MpiResult_tbl(
+   MpiResult_id INT NOT NULL AUTO_INCREMENT,
+   MpiResult_x VARCHAR(40) NOT NULL,
+   MpiResult_y VARCHAR(40) NOT NULL,
+   MpiResult_K VARCHAR(40) NOT NULL,
+   
+   PRIMARY KEY ( MpiResult_id )
+);
