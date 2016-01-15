@@ -5,14 +5,27 @@ EXEC=Mpimain SQLmain
 
 all: $(EXEC)
 
-Appli : appli.o
-	mpicc -o AppliRun appli.o  -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl
+Appli : appli.o kmeans.o
+	mpicc -o AppliRun  kmeans.o appli.o  -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl
 	
-appli.o : appli.c
+appli.o : appli.c kmeans.h
 	mpicc -o appli.o -c appli.c  -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -W -Wall
-
+	
+	
+Appli2 : appli2.o
+	mpicc -o Appli2Run appli2.o kmeans.o -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl
+	
+appli2.o : appli2.c
+	mpicc -o appli2.o -c appli2.c  -I/usr/include/mysql -DBIG_JOINS=1  -fno-strict-aliasing  -g -W -Wall
+	
+Appli2Run: Appli2
+	mpirun -np 10 ./Appli2Run
+	
+kmeans.o: kmeans.c
+	gcc -o kmeans.o -c kmeans.c -lm
+	
 AppliRun: Appli
-	mpirun -np 2 ./AppliRun
+	mpirun -np 10 ./AppliRun
 
 Mpimain: Mpimain.c
 	mpicc Mpimain.c -o Mpimain -lm
